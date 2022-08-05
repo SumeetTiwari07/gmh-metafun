@@ -1,0 +1,23 @@
+# Pathway	Sample1_Abundance	Sample2_Abundance	Sample3_Abundance	Sample4_Abundance	Sample5_Abundance	Sample6_Abundance	Sample7_Abundance	Sample8_Abundance	Sample9_Abundance	Sample10_Abundance
+UNMAPPED	100	100	100	100	100	100	100	100	100	100
+UNINTEGRATED	100	100	100	100	100	100	100	100	100	100
+P1:xyz	10	40	80	90	0	30	50	40	70	100
+P1:xyz|g__Klebsiella.s__Klebsiella_pneumoniae	0	0	0	0	0	0	0	0	0	0
+P2:xyz	0	4	1	6	0	3	0	6	2	4
+P2:xyz|unclassified	0	0	0	0	0	0	0	0	0	0
+P3:xyz	10	30	0	0	0	10	0	40	0	0
+P3:xyz|g__Escherichia.s__Escherichia_coli	0	0	0	0	0	0	0	0	0	0
+P4:xyz	2	0	9	6	2	3	0	5	0	0
+P4:xyz|unclassified	0	0	0	0	0	0	0	0	0	0
+P5:xyz	100	0	0	0	0	0	0	0	0	0
+P5:xyz|unclassified	0	0	0	0	0	0	0	0	0	0
+P6:xyz	7	7	6	7	5	7	1	3	0	0
+P6:xyz|unclassified	0	0	0	0	0	0	0	0	0	0
+P7:xyz	10	20	30	40	50	60	70	80	90	100
+P7:xyz|g__Bacteroides.s__Bacteroides_fragilis	0	0	0	0	0	0	0	0	0	0
+P8:xyz	4	0	3	9	1	3	1	2	0	0
+P8:xyz|unclassified	9	9	7	2	3	3	5	4	0	0
+P9:xyz	0	0	0	0	0	0	0	0	0	0
+P9:xyz|g__Bacteroides.s__Bacteroides_fragilis	0	0	0	0	0	0	0	0	0	0
+P9:xyz|g__Bacteroides.s__Bacteroides_xylanisolvens	0	0	0	0	0	0	0	0	0	0
+P10:xyz	1	0	1	0	0	0	1	1	1	0
