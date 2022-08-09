@@ -1,0 +1,58 @@
+name: nextflow-test
+# This workflow runs the pipeline with the minimal test dataset to check that it completes without any syntax errors
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  
+env:
+  NXF_ANSI_LOG: false
+  CAPSULE_LOG: none
+
+jobs:
+  test:
+    name: Run pipeline with test data
+    # Only run on push if this is the nf-core dev branch (merged PRs)
+    if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'telatin/getreads') }}"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Nextflow versions
+        include:
+          # Test pipeline minimum Nextflow version
+          - NXF_VER: "21.10.3"
+            NXF_EDGE: ""
+          # Test latest edge release of Nextflow
+          - NXF_VER: ""
+            NXF_EDGE: "1"
+    steps:
+      - name: Check out pipeline code
+        uses: actions/checkout@v2
+
+      - name: Install Nextflow
+        env:
+          NXF_VER: ${{ matrix.NXF_VER }}
+          # Uncomment only if the edge release is more recent than the latest stable release
+          # See https://github.com/nextflow-io/nextflow/issues/2467
+          # NXF_EDGE: ${{ matrix.NXF_EDGE }}
+        run: |
+          wget -qO- get.nextflow.io | bash
+          sudo mv nextflow /usr/local/bin/
+      - name: Setup Miniconda
+        # You may pin to the exact commit or the version.
+        # uses: conda-incubator/setup-miniconda@35d1405e78aa3f784fe3ce9a2eb378d5eeb62169
+        uses: conda-incubator/setup-miniconda@v2.1.1
+        with:
+          # Environment.yml to create an environment. See https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file for more information.
+          environment-file: envs/env.yaml
+          # Environment name (or path) to activate on all shells. Default is `test` which will be created in `$CONDA/envs/test`. If an empty string is used, no environment is activated by default (For `base` activation see the `auto-activate-base` option). If the environment does not exist, it will be created and activated. If `environment-file` is used and you want that to be the environment used, you need to explicitely provide the name of that environment on `activate-environment`. If using sh/bash/cmd.exe shells please read the IMPORTANT! section on the README.md! to properly activate conda environments on these shells.
+          activate-environment: gmh-metafun
+          # Exact version of a Python version to use on "activate-environment". If provided, this will be installed before the "environment-file". See https://anaconda.org/anaconda/python for available "python" versions.
+          python-version: 3.6
+          use-mamba: true
+      - name: Test pipeline
+        run: |
+          nextflow run ${GITHUB_WORKSPACE} -stub || find /home/runner/work/gmh-metafun/getreads/work/ -name "*.log" | xargs grep "^."
+          
+         
