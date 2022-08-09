@@ -50,8 +50,7 @@ jobs:
           # Environment name (or path) to activate on all shells. Default is `test` which will be created in `$CONDA/envs/test`. If an empty string is used, no environment is activated by default (For `base` activation see the `auto-activate-base` option). If the environment does not exist, it will be created and activated. If `environment-file` is used and you want that to be the environment used, you need to explicitely provide the name of that environment on `activate-environment`. If using sh/bash/cmd.exe shells please read the IMPORTANT! section on the README.md! to properly activate conda environments on these shells.
           activate-environment: gmh-metafun
           use-mamba: true
-      - name: Test pipeline
-        run: |
-          mkdir -p db && nextflow run ${GITHUB_WORKSPACE}/humann.nf -stub --uniref db --chocophlan db --metaphlandb db --max_cpus 2 --max_memory 2.GB || find /home/runner/work/gmh-metafun/gmh-metafun/work/ -name "*.log" | xargs grep "^."
-          
+          run: |
+            mkdir -p db && nextflow run ${GITHUB_WORKSPACE}/humann.nf -stub --uniref db --chocophlan db --metaphlandb db --max_cpus 2 --max_memory 2.GB || find /home/runner/work/gmh-metafun/gmh-metafun/work/ -name "*.log" | xargs grep "^."
+            
          
