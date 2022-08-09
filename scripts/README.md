@@ -40,7 +40,7 @@ Sample3	900
 ``` 
 * The flag `-qc` and `-st` should only be used when using Genefamilies summary as input. But these are optional.
 
-### Estimate top N genefamilies abundance
+### Estimate top N pathways abundance
 To get the top N (for e.g. N = 5) pathways from the Pathabundance summary file obtained from Humann2/3 pipeline.
 * By default the script trim **_Abundance** suffix from samples names from PathAbundance summary file. If there is something else then use `-ps` flag to change.
 ```
