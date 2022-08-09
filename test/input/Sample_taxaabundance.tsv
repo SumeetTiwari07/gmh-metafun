@@ -1,0 +1,24 @@
+#mpa_v30_CHOCOPhlAn_201901											
+clade_name	NCBI_tax_id	Sample1_metaphlan_bugs_list	Sample2_metaphlan_bugs_list	Sample3_metaphlan_bugs_list	Sample4_metaphlan_bugs_list	Sample5_metaphlan_bugs_list	Sample6_metaphlan_bugs_list	Sample7_metaphlan_bugs_list	Sample8_metaphlan_bugs_list	Sample9_metaphlan_bugs_list	Sample10_metaphlan_bugs_list
+UNKNOWN	-1	10	20	30	40	50	40	30	20	10	50
+k__Bacteria	2	10	10	10	10	10	10	10	10	10	10
+k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Bifidobacteriales|f__Bifidobacteriaceae|g__Genus1	2|201174|1760|85004|31953|1678	1	1	1	1	1	1	1	1	1	1
+k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Bifidobacteriales|f__Bifidobacteriaceae|g__Bifidobacterium|s__Species1	2|201174|1760|85004|31953|1679	1	1	1	1	1	1	1	1	1	1
+k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Bifidobacteriales|f__Bifidobacteriaceae|g__Genus2	2|201174|1760|85004|31953|1680	0	1	0	1	0	1	1	0	1	0
+k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Bifidobacteriales|f__Bifidobacteriaceae|g__Bifidobacterium|s__Species2	2|201174|1760|85004|31953|1681	0	1	0	1	0	1	1	0	1	0
+k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Bifidobacteriales|f__Bifidobacteriaceae|g__Genus3	2|201174|1760|85004|31953|1682	1	0	1	1	0	1	0	1	1	0
+k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Bifidobacteriales|f__Bifidobacteriaceae|g__Bifidobacterium|s__Species3	2|201174|1760|85004|31953|1683	1	0	1	1	0	1	0	1	1	0
+k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Bifidobacteriales|f__Bifidobacteriaceae|g__Genus4	2|201174|1760|85004|31953|1684	1	1	1	1	1	1	0	1	1	1
+k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Bifidobacteriales|f__Bifidobacteriaceae|g__Bifidobacterium|s__Species4	2|201174|1760|85004|31953|1685	1	1	1	1	1	1	0	1	1	1
+k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Bifidobacteriales|f__Bifidobacteriaceae|g__Genus5	2|201174|1760|85004|31953|1686	1	1	1	1	1	1	0	0	1	0
+k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Bifidobacteriales|f__Bifidobacteriaceae|g__Bifidobacterium|s__Species5	2|201174|1760|85004|31953|1687	1	1	1	1	1	1	0	0	1	0
+k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Bifidobacteriales|f__Bifidobacteriaceae|g__Genus6	2|201174|1760|85004|31953|1688	1	1	0	0	1	1	1	0	1	0
+k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Bifidobacteriales|f__Bifidobacteriaceae|g__Bifidobacterium|s__Species6	2|201174|1760|85004|31953|1689	1	1	0	0	1	1	1	0	1	0
+k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Bifidobacteriales|f__Bifidobacteriaceae|g__Genus7	2|201174|1760|85004|31953|1690	0	1	0	0	0	1	0	1	1	0
+k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Bifidobacteriales|f__Bifidobacteriaceae|g__Bifidobacterium|s__Species7	2|201174|1760|85004|31953|1691	0	1	0	0	0	1	0	1	1	0
+k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Bifidobacteriales|f__Bifidobacteriaceae|g__Genus8	2|201174|1760|85004|31953|1692	0	0	0	0	0	0	0	0	0	0
+k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Bifidobacteriales|f__Bifidobacteriaceae|g__Bifidobacterium|s__Species8	2|201174|1760|85004|31953|1693	0	0	0	0	0	0	0	0	0	0
+k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Bifidobacteriales|f__Bifidobacteriaceae|g__Genus9	2|201174|1760|85004|31953|1694	0	1	1	1	0	0	0	0	0	0
+k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Bifidobacteriales|f__Bifidobacteriaceae|g__Bifidobacterium|s__Species9	2|201174|1760|85004|31953|1695	0	1	1	0	0	0	0	0	1	0
+k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Bifidobacteriales|f__Bifidobacteriaceae|g__Genus10	2|201174|1760|85004|31953|1696	0	0	0	0	0	1	1	0	0	0
+k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Bifidobacteriales|f__Bifidobacteriaceae|g__Bifidobacterium|s__Species10	2|201174|1760|85004|31953|1697	0	0	0	0	0	1	1	0	0	0
