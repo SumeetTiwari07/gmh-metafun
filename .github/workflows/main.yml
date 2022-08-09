@@ -52,6 +52,6 @@ jobs:
           use-mamba: true
       - name: Test pipeline
         run: |
-          nextflow run ${GITHUB_WORKSPACE}/humann.nf -stub || find /home/runner/work/gmh-metafun/gmh-metafun/work/ -name "*.log" | xargs grep "^."
+          mkdir -p db && nextflow run ${GITHUB_WORKSPACE}/humann.nf -stub --uniref db --chocophlan db --metaphlandb db || find /home/runner/work/gmh-metafun/gmh-metafun/work/ -name "*.log" | xargs grep "^."
           
          
