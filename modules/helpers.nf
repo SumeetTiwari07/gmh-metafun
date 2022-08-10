@@ -22,6 +22,6 @@ process JSON_STATS {
 
     script:
     """
-    getCountsFromFastp.py --fields 10 --header --output stats.tsv *.fastp.json
+    getCountsFromFastp.py --fields 2 --output stats.tsv *.fastp.json
     """
 }
