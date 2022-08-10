@@ -185,7 +185,7 @@ if __name__=="__main__":
         # Check if the qc statistic file is required. This will only be used along with Genefamilies file
         if args.stats is not None :
 
-            stats = pd.read_table(args.stats, header = 0) # Reads stats file.
+            stats = pd.read_table(args.stats, header = None) # Reads stats file.
             qc_stats = qc_data(stats, unmapped_reads) # Generate QC file.
             
             if not qc_stats.empty:
