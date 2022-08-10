@@ -1,8 +1,9 @@
 #!/usr/bin/env Rscript
-#for: humann.nf
+
 #loading libraries
 library('ggplot2')
 library('tidyr')
+library("optparse")
 
 #Script to plot the bubble plot for the top 10 genefamilies/pathways/taxa in an experiment.
 #The samples can be grouped into single metadata if provided.
@@ -10,66 +11,62 @@ library('tidyr')
 #Test if there is at least one argument: if not, return an error
 #bubble_plot.R --version=0.1
 
-args <- commandArgs(trailingOnly=TRUE)
-if (length(args) < 5) {
-    stop("Missing inputs and parameters", call.=FALSE)
-} else if (length(args) == 5) {
-    qc = args[1] #QC file with "samples total_reads Mapped Unmapped"
-    rel = args[2] #Input file relative abundance
-    fig.out = args[3] #Output directory and file name for plots to save
-    metadata= toupper(args[4]) #logical values True and False only.
-    outdir= args[5] #path for storing the plots
-}
+option_list = list(
+   make_option(c("-i", "--input"), default = NULL, type ="character", help = "Genefamilies/Pathways/taxa Relative abundance file"),
+   make_option(c("-d", "--datatype"), type="character", default = "GF", help = "Input datatype:For GeneFamiles -> GF, Pathways -> PW, Taxa -> T, [default=%default]"),
+   make_option(c("-m", "--metadata"), action = "store_false", default = FALSE, help = "If INPUT has metadata in it.[default= %default]"),
+   make_option(c("-q", "--qcfile"), type = "character", default = NULL, help = "QC file with SampleName, Total_Reads, Unmapped, Mapped"),
+   make_option(c("-o", "--output"), type = "character", default = "bubble_plot", help = "Prefix for output files [defualt=%default]")
+ )
+opt = parse_args(OptionParser(option_list=option_list))
 
-#Creating directory to store plots
-#If directory doesn't exist create one.
-loc=paste0(outdir,"plots")
-if (!file.exists(loc)){
-    dir.create(file.path(loc))
-}
+# Set the datatype
 
-#checking the end of the filename
-
-if (grepl("_GFabundance-rel.csv$",rel)=="TRUE"){
-   datatype="genefamilies" 
-} else if (grepl("_PWabundance-rel.csv$",rel)=="TRUE") {
-  datatype="pathways"
-} else if (grepl("_taxa-rel.csv$",rel)=="TRUE") {
-    datatype="taxas"
+if (toupper(opt$datatype) == "GF"){
+   datatype = "Genefamilies" 
+} else if (toupper(opt$datatype) == "PW") {
+  datatype = "Pathways"
+} else if (toupper(opt$datatype) == "T") {
+    datatype = "Taxa"
 } else {
-    datatype="genefamilies/pathways/taxas"
+    datatype = "Genefamilies/Pathways/Taxa"
 }
 
 
-#Processing the QC file
-qctable=read.csv(qc,header = TRUE) #Read qc file
-colnames(qctable)[1]<-"Sample"
-qctable=subset(qctable, select=-c(total_reads,Total.bp,Avg,N50,N75,N90,auN,Min,Max))
-qctable_long=qctable%>%
+# Processing the QC file
+if (!is.null(opt$qcfile)) {
+  # Importing the QC file
+  qctable = read.csv(opt$qcfile, header = TRUE) # Import QC file
+  colnames(qctable)[1]<-"Sample"
+  qctable=subset(qctable, select=-c(Total_reads))
+  N=nrow(qctable)
+  qctable_long = qctable %>%
     gather(key = "labels", value = "n_reads",colnames(qctable)[2]:colnames(qctable)[ncol(qctable)],factor_key = TRUE)
-
-#QC barplot
-qc_plot=ggplot(qctable_long, aes(fill=labels, y=n_reads, x=Sample,width=0.5)) + 
+  
+  # QC barplot
+  qc_plot=ggplot(qctable_long, aes(fill=labels, y=n_reads, x=Sample,width=0.5)) + 
     geom_bar(position="stack", stat="identity")+
     coord_flip()+
     labs(x="Samples", y="# reads",fill="Reads")+
-    ggtitle("# reads mapped vs unmapped reads")+
+    ggtitle("# mapped vs unmapped reads")+
     theme(
-        axis.text.x =element_text(colour = "black", size = 7, face = "bold"),
-        axis.text.y = element_text(colour = "black", face = "bold", size = 7),
-        legend.title = element_text(size = 7, face = "bold"),
+      axis.text.x =element_text(colour = "black", size = 7, face = "bold"),
+      axis.text.y = element_text(colour = "black", face = "bold", size = 7),
+      legend.title = element_text(size = 7, face = "bold"),
     )
+  #Saving the plots
+  ggsave(file.path(basename(c("qc_plots.svg"))), plot=qc_plot,width=10,height=0.7*N,device="svg")
+}
 
 
-#Processing abundance file
-reldata=read.csv(rel,header = TRUE) #Reading abundance file
-colnames(reldata)[1]<-"samples" #Renaming the first column
+# Processing abundance file
+reldata=read.csv(opt$input, header = TRUE) # Reading abundance file
+colnames(reldata)[1]<-"samples" # Renaming the first column
 rel_sub=subset(reldata, select=-c(Others)) # Dropping column 'Others'
 rel_sub=rel_sub %>% replace(is.na(.), 0)
-#rel_sub$samples <- factor(rel_sub$samples, levels = rel_sub$samples) #Fixing the order
 
 #Check if the metadata is provided in the input file
-if (metadata=="TRUE") {
+if (opt$metadata == "TRUE") {
     
     metadata_col=tail(colnames(rel_sub),n=1) #Metadata data column name
     colnames(rel_sub)[ncol(rel_sub)] <- "metadata"
@@ -96,9 +93,10 @@ if (metadata=="TRUE") {
         scale_size(limits = NULL, range = c(.1,6), breaks = waiver()) +
         theme(legend.key = element_blank(),
               legend.key.size = unit(0.008, 'cm'),
-              axis.text.x =element_text(colour = "black", size = 7, angle = 90,hjust=1),
-              axis.text.y = element_text(colour = "black", size = 7),
-              legend.title = element_text(size = 6, face = "bold"),
+              axis.text.x =element_text(colour = "black", size = 8, angle = 90,hjust=1),
+              axis.text.y = element_text(colour = "black", size = 8),
+              plot.title = element_text(size = 10, face = "bold"),
+              legend.title = element_text(size = 8, face = "bold"),
               panel.background = element_blank(), panel.border = element_rect(colour = "black", fill = NA, size = 0.8),
               panel.grid.major.y = element_line(colour = "grey95"),
         ) +
@@ -114,21 +112,21 @@ if (metadata=="TRUE") {
     #Make plot abundance
     bubble_plot=ggplot(reldata_long, aes(y=samples, x=gfpata)) +
         geom_point(aes(size=abundance,fill=gfpata),alpha=0.8,shape=21) +
-        labs(x="", y="",size="Relative abundance (%)",color="",fill="") +
+        labs(x="", y="",size="Relative abundance (%)",color="",fill=datatype) +
         guides(fill=guide_legend(override.aes = list(size=4)))+ #change the legend size in fill
         ggtitle(paste0("Top ",N," ",datatype, c(" in the experiment"))) +
         scale_size(limits = NULL, range = c(.1,6), breaks = waiver()) +
         theme(legend.key = element_blank(),
               legend.key.size = unit(0.008, 'cm'),
-              axis.text.x =element_text(colour = "black", size = 7, angle = 90, hjust=1),
-              axis.text.y = element_text(colour = "black", size = 7),
-              legend.title = element_text(size = 6, face = "bold"),
+              axis.text.x =element_text(colour = "black", size = 8, angle = 90, hjust=1),
+              axis.text.y = element_text(colour = "black", size = 8),
+              legend.title = element_text(size = 8, face = "bold"),
+              plot.title = element_text(size = 10, face = "bold"),
               panel.background = element_blank(), panel.border = element_rect(colour = "black", fill = NA, size = 0.8),
               panel.grid.major.y = element_line(colour = "grey95"),
         ) +
         scale_x_discrete(position = "bottom")
 }
 
-#Saving the plots
-ggsave(file.path(loc,paste0(basename(fig.out),c("_qc.svg"))), plot=qc_plot,width=10,height=0.7*N,device="svg")
-ggsave(file.path(loc,paste0(basename(fig.out),c("_relabundance.svg"))),plot=bubble_plot,width=10,height=0.7*N,device="svg")
+
+ggsave(file.path(paste0(basename(opt$output),c(".svg"))),plot=bubble_plot,width=10,height=0.7*N,device="svg")
