@@ -85,8 +85,8 @@ process TOP_TAXA {
     script:
     """
     #Estimate the top N genefamilies and pathways in the study [update to: extract_topNtaxaabundance]
-    extract_taxaabundance.py -i merged-taxonomy.tsv -o Species -r S -t 20
-    extract_taxaabundance.py -i merged-taxonomy.tsv -o Genus -r G -t 20
+    extract_topNtaxaabundance.py -i merged-taxonomy.tsv -o Species -r S -t 20
+    extract_topNtaxaabundance.py -i merged-taxonomy.tsv -o Genus -r G -t 20
     """
 }
 process JOIN_TAXONOMY {
@@ -117,26 +117,25 @@ process TOP_PATHWAYS {
     """
     #Estimate the top N genefamilies and pathways in the study
     mkdir -p summary
-    extract_genefamilies.py -i GeneFamilies.tsv -st stats.tsv -qc summary/qc -o summary/top20 -t 20
-    extract_pathabundance.py -i PathAbundance.tsv -o summary/top20 -t 20
+    extract_topNabundance.py -i GeneFamilies.tsv -st stats.tsv -qc summary/qc -o summary/top20gf -t 20
+    extract_topNabundance.py -i PathAbundance.tsv -o summary/top20pa -t 20
     """
 }
 
 process BUBBLE_PLOTS {
-    publishDir "$params.outdir/", mode:'copy'
+    publishDir "$params.outdir/plots-pathways/", mode:'copy'
 
     input:
     path summary
 
     output:
-    path 'plots-pathways'
+    path '*.svg'
 
     script:
     """
     #Plot the top N genefamilies and pathways in the study
-    bubble_plot.R summary/qc_report.csv summary/top20_GFabundance-rel.csv top20gf False ./
-    bubble_plot.R summary/qc_report.csv summary/top20_PWabundance-rel.csv top20pa False ./
-    mv plots plots-pathways
+    bubble_plot.R -i summary/top20gf-rel.csv -q summary/qc-report.csv -o top20gf -d GF
+    bubble_plot.R -i summary/top20pa-rel.csv -o top20pa -d PW
     """
 }
 process BUBBLE_TAXA {
