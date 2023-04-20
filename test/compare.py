@@ -51,7 +51,7 @@ def compare_dataframe(extracted_df, expected_df):
     else:
         sys.stdout.write(f" \u274c FAIL: ColSums are different (extracted, expected)\n")
         sys.stdout.flush()
-
+    
     print("5. Checking if RowSums are same...")
     RowSum_extracted = extracted_df.sum(axis = 1) # Rows sum
     RowSum_expected = expected_df.sum(axis = 1) # Rows sum

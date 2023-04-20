@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import extract_topNabundance as et
+import extract_topNabundance_v2 as et
 import pandas as pd
 import compare
 import sys
@@ -23,11 +23,11 @@ if __name__ == '__main__':
     
     # Get genefamilies abundnace both extract and expected
     gf_file = pd.read_table(gf_summary_file, header=0) # Test genefamilies abundance file 
-    expected_abundance = pd.read_csv(gf_expected_abundance, header = 0, index_col = 0) # Expected output
+    expected_abundance = pd.read_csv(gf_expected_abundance, header = 0, index_col=0) # Expected output
     extract_gf, extract_UR = et.extract_GenefamiliesAbundance(gf_file, StringToTrim) # Extracted ouput
+    extract_gf = extract_gf[~extract_gf[extract_gf.columns[0]].str.contains('\|')]
     extract_gf.set_index(extract_gf.columns[0], inplace=True)
     compare.compare_dataframe(extract_gf, expected_abundance) # Check if the expected and extracted outputs are same.
-    
     # Input Pathways abundance
     print("\033[1m"+"b) Testing extract_PathwaysAbundance function...!!!"+"\033[0;0m")
     sys.stdout.flush()
@@ -57,7 +57,7 @@ if __name__ == '__main__':
     
     # Compare the stats file
     print("\033[1m"+"d) Testing qc_data function...!!!"+"\033[0;0m")
-    total_reads = pd.read_table("./input/stats_10.tsv", header = 0) # Input stats file per sample (samplename "\t" Total_reads)
+    total_reads = pd.read_table("./input/stats_10.tsv", header = None) # Input stats file per sample (samplename "\t" Total_reads)
     unmapped_reads = pd.read_table("./input/unmapped_count.tsv", header = 0) # Unmapped reads per sample
     estimated_qcstats = et.qc_data(total_reads, unmapped_reads) # Estimated QC table
     expected_qcstats = pd.read_csv("./output/qc-report.csv", header = 0) # Expected QC table

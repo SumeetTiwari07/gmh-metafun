@@ -96,7 +96,6 @@ def qc_data(stats, unmap):
     """
     Generate qc file with: Samplenames, # Total_reads, # Unmapped, # Mapped
     """
-
     stats.set_index(stats.columns[0], inplace = True) # Set index on first column
     unmap.set_index(unmap.columns[0], inplace = True) # Set index on first column
     unmap = unmap.T
