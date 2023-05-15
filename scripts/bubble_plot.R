@@ -129,4 +129,5 @@ if (opt$metadata == "TRUE") {
 }
 
 
-ggsave(file.path(paste0(basename(opt$output),c(".svg"))),plot=bubble_plot,width=10,height=0.7*N,device="svg")
+#ggsave(file.path(paste0(basename(opt$output),c(".svg"))),plot=bubble_plot,width=10,height=0.7*N,device="svg")
+ggsave(file.path(paste0(basename(opt$output),c(".svg"))),plot=bubble_plot,device="svg",limitsize=FALSE,units="px",width=750*N,height=200*N)

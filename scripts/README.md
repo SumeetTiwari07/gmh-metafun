@@ -77,3 +77,21 @@ Output:
 top5gf_plot.svg: Top 5 Genefamilies abundance plot.
 qc_plot.svg: Its default output file genereate showing the barplots for mapped vs unmapped reads per sample if "-q" is used.
 ```
+
+### Adding metadata
+`humann_barplot` script required summarized humann files (genefamilies/pathway abundance)
+with the metadadata at the end of the those files. These is helpful while grouping the samples with as per the metadata and then plot the required graphs.
+
+Use the script to add the metadata of samples to summary files from `humann_join_tables`.
+
+This script is not part of the main pipeline.
+
+```
+# The input shoul be provided using the command line.
+
+usage: python3 addmetada.py
+
+Humann summary file (.tsv) name: filename or /path_to_file/name
+Metadata (in .csv format) filename: filename or /path_to_file/name
+Output file name prefix: some_string
+```

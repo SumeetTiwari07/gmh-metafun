@@ -148,13 +148,13 @@ if __name__=="__main__":
     input_file=pd.DataFrame()
     for chunk in pd.read_table(args.input, header = 0, chunksize=100000):
         if input_file.empty:
+            # Count the occurrence of UNINTEGRATED. This is only suppose to find in pathways abundance file.
+            count = chunk[chunk.columns[0]].str.count("UNINTEGRATED").sum()
             input_file = chunk[~chunk[chunk.columns[0]].str.contains('\|')] # Extracting abundance at community-level.
         else:
             chunk = chunk[~chunk[chunk.columns[0]].str.contains('\|')]
             input_file = pd.concat([input_file,chunk])
-    # Count the occurrence of UNINTEGRATED. This is only suppose to find in pathways abundance file.
-    count = input_file[input_file.columns[0]].str.count("UNINTEGRATED").sum()
-    
+ 
     if count > 0:
 
         pathways_abundance = extract_PathwaysAbundance(input_file, args.pstring)
