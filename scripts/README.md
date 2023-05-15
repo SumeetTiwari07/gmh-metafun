@@ -80,7 +80,7 @@ qc_plot.svg: Its default output file genereate showing the barplots for mapped v
 
 ### Adding metadata
 `humann_barplot` script required summarized humann files (genefamilies/pathway abundance)
-with the metadadata at the end of the those files. These is helpful while grouping the samples with as per the metadata and then plot the required graphs.
+with the metadadata at the end of the those files. This is helpful if the grouping of samples as per the metadata is inteded as final plot.
 
 Use the script to add the metadata of samples to summary files from `humann_join_tables`.
 
