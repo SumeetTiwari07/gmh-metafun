@@ -1,7 +1,7 @@
 
 
 nextflow.enable.dsl = 2
-params.reads = "$baseDir/reads/*_R{1,2}.fastq.gz"
+params.reads = "$projectDir/reads/*_R{1,2}.fastq.gz"
 params.outdir = "nf-humann"
 
 params.uniref = "uniref"
