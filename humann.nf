@@ -4,9 +4,9 @@ nextflow.enable.dsl = 2
 params.reads = "$baseDir/reads/*_R{1,2}.fastq.gz"
 params.outdir = "nf-humann"
 
-params.uniref = "/qib/platforms/Informatics/transfer/outgoing/databases/humann_db/uniref/"
-params.chocophlan = "/qib/platforms/Informatics/transfer/outgoing/databases/humann_db/chocophlan/"
-params.metaphlandb = "/qib/platforms/Informatics/transfer/outgoing/databases/humann_db/mpa/"
+params.uniref = "uniref"
+params.chocophlan = "chocophlan"
+params.metaphlandb = "mpa"
 
 reads = Channel
         .fromFilePairs(params.reads, checkIfExists: true)
