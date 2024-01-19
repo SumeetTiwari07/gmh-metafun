@@ -6,7 +6,6 @@ Nextflow pipeline to perform functional profiling (genefamilies and pathways) of
 3. Summary of Genefamilies and pathways abundance (humann3)
 4. Visulaziation of top N species, Genefamiles and pathways.
 
-
 How to run the pipeline:
 
 1. Install Nextflow (>=21.04.0)
