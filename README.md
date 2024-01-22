@@ -26,7 +26,7 @@ nextflow run humann.nf --reads 'data/*_R{1,2}.fastq.gz' \
 ```
 
 Notable options:
-* `--uniref` [path]`: Path to the uniref database
+* `--uniref [path]`: Path to the uniref database
 * `--chocophlan [path]` : Path to the chocophlan database
 * `--metaphlandb [path]` : Path to metaphlandb database
 
