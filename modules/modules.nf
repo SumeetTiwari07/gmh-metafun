@@ -97,6 +97,7 @@ process SEQFU_STATS {
 
 process JOIN_HUMANN {
     publishDir "$params.outdir", mode:'copy'
+    
     input:
     path '*'
 

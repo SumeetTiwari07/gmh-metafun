@@ -32,8 +32,18 @@ def CHOCOPHLAN = file(params.chocophlan, checkIfExists: true)
 include  { VERSIONS; JSON_STATS } from "./modules/helpers.nf"
 include  { HUMANN; JOIN_HUMANN; FASTP }   from "./modules/modules.nf"
 
-
-
+process VERSIONS {
+    publishDir params.outdir, mode:'copy'
+    output:
+    path 'versions.txt'
+    script:
+    """
+    echo "HUMANN2: $(humann2 --version)" > versions.txt
+    echo "MetaPhlAn: $(metaphlan --version)" >> versions.txt
+    echo "ChocoPhlAn: $(chocophlan --version)" >> versions.txt
+    echo "UniRef: $(humann2_databases --download uniref uniref90_diamond)" >> versions.txt
+    """
+}
 
 process INTERLEAVE {
     tag "ilv $sample_id"
@@ -70,8 +80,6 @@ process multiqc {
     """
 } 
 
-
-
 process TOP_TAXA {
     label 'process_filtering'
     publishDir "$params.outdir/top_taxa/", mode:'copy'
@@ -91,6 +99,7 @@ process TOP_TAXA {
 }
 process JOIN_TAXONOMY {
     publishDir "$params.outdir", mode:'copy'
+
     input:
     path "*"
 
@@ -106,6 +115,7 @@ process JOIN_TAXONOMY {
 
 process TOP_PATHWAYS {
     publishDir "$params.outdir/", mode:'copy'
+
     input:
     path tables
     path 'stats.tsv'
