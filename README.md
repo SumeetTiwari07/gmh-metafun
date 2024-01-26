@@ -1,9 +1,9 @@
 # gmh-metafun (beta)
 
 Nextflow pipeline to perform functional profiling (genefamilies and pathways) of metagenomic short reads.
-1. Read cleaning (fastp)
-2. Summary of Species relative abundance (metaphlan3)
-3. Summary of Genefamilies and pathways abundance (humann3)
+1. Read cleaning ([fastp](https://github.com/OpenGene/fastp))
+2. Summary of Species relative abundance ([metaphlan3](https://huttenhower.sph.harvard.edu/metaphlan3/))
+3. Summary of Genefamilies and pathways abundance ([humann3](https://huttenhower.sph.harvard.edu/humann/))
 4. Visulaziation of top N species, Genefamiles and pathways.
 
 # Rationale
